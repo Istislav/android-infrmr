@@ -43,7 +43,9 @@
                 android:cropToPadding="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/fourthcourse"
-                app:srcCompat="@drawable/fourthcourse" />
+                app:srcCompat="@drawable/fourthcourse"
+                android:layout_centerHorizontal="true"
+                />
 
             <TextView
                 android:id="@+id/newsTitle"
