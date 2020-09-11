@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import ru.istislav.infrmr.R;
@@ -40,6 +42,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         holder.description.setText(article.getDescription());
         holder.date.setText(article.getPublishedDate());
         holder.author.setText(article.getAuthor());
+
+        Picasso.get().load(article.getImageUrl()).into(holder.articleImage);
     }
 
     @Override
