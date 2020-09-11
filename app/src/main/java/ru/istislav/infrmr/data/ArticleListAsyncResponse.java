@@ -2,6 +2,6 @@ package ru.istislav.infrmr.data;
 
 import java.util.ArrayList;
 
-interface ArticleListAsynResponse {
+interface ArticleListAsyncResponse {
     void processFinish(ArrayList<Article> articles);
 }
