@@ -8,6 +8,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -28,7 +30,26 @@ public class ArticleData {
             @Override
             public void onResponse(JSONObject response) {
                 // Log.d("NEWSSSSSSSSSSSSS:", response.toString());
+                try {
+                    JSONArray articleArray = response.getJSONArray("articles");
 
+                    for (int i=0; i<articleArray.length(); i++) {
+                        JSONObject articleObject = articleArray.getJSONObject(i);
+                        Article article = new Article();
+
+                        article.setAuthor(articleObject.getString("author"));
+                        article.setTitle(articleObject.getString("title"));
+                        article.setDescription(articleObject.getString("description"));
+                        article.setNewsUrl(articleObject.getString("url"));
+                        article.setImageUrl(articleObject.getString("urlToImage"));
+                        article.setPublishedDate(articleObject.getString("publishedAt"));
+
+                        articles.add(article);
+                    }
+                    Log.v("Article Object:", articles.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
