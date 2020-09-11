@@ -23,7 +23,7 @@ import ru.istislav.infrmr.controller.AppController;
 public class ArticleData {
     ArrayList<Article> articles = new ArrayList<>();
 
-    public void getNewsList() {
+    public void getNewsList(final ArticleListAsynResponse callback) {
         String url = "http://newsapi.org/v2/everything?q=bitcoin&from=" + getDateLine() + "&sortBy=publishedAt&apiKey=ae080eeb2454486b9a39f0dc5a4f9467";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
@@ -46,7 +46,9 @@ public class ArticleData {
 
                         articles.add(article);
                     }
-                    Log.v("Article Object:", articles.toString());
+                    //Log.v("Article Object:", articles.toString());
+
+                    if(callback != null) callback.processFinish(articles);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
