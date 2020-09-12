@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ru.istislav.infrmr.R;
+import ru.istislav.infrmr.util.Util;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
     ArrayList<Article> articles = new ArrayList<>();
@@ -40,7 +41,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         // this is our viewholder with class ViewHolder at the bottom
         holder.title.setText(article.getTitle());
         holder.description.setText(article.getDescription());
-        holder.date.setText(article.getPublishedDate());
+        holder.date.setText(Util.dateFormatted(article.getPublishedDate()));
         holder.author.setText(article.getAuthor());
 
         Picasso.get().load(article.getImageUrl()).into(holder.articleImage);
