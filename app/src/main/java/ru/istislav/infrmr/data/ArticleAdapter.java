@@ -27,6 +27,7 @@ import ru.istislav.infrmr.util.Util;
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
     ArrayList<Article> articles = new ArrayList<>();
     Context context;
+    private OnAdapterItemClickListener itemClickListener;
 
     public ArticleAdapter(ArrayList<Article> articles, Context context) {
         this.articles = articles;
@@ -73,6 +74,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return articles.size(); // Important! If this returns 0, adapter will be empty!
     }
 
+    public void setOnClickListener(OnAdapterItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView articleImage;
         public TextView author, description, title, date;
@@ -91,7 +96,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, "Preved Medved", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(context, "Preved Medved", Toast.LENGTH_SHORT).show();
+            itemClickListener.onItemClick(v, getAdapterPosition());
         }
+    }
+
+    public interface OnAdapterItemClickListener {
+        void onItemClick(View view, int position);
     }
 }
