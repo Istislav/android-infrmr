@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,18 +73,25 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return articles.size(); // Important! If this returns 0, adapter will be empty!
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView articleImage;
         public TextView author, description, title, date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            itemView.setOnClickListener(this); // registering clicking on the view
+
             articleImage = itemView.findViewById(R.id.newsImageId);
             author = itemView.findViewById(R.id.author);
             description = itemView.findViewById(R.id.descriptionNews);
             title = itemView.findViewById(R.id.newsTitle);
             date = itemView.findViewById(R.id.date);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(context, "Preved Medved", Toast.LENGTH_SHORT).show();
         }
     }
 }
