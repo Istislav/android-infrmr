@@ -1,6 +1,8 @@
 package ru.istislav.infrmr.data;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -36,7 +41,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ArticleAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ArticleAdapter.ViewHolder holder, int position) {
         Article article = articles.get(position);
         // this is our viewholder with class ViewHolder at the bottom
         holder.title.setText(article.getTitle());
@@ -45,6 +50,20 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         holder.author.setText(article.getAuthor());
 
         Picasso.get().load(article.getImageUrl()).into(holder.articleImage);
+
+
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) holder.articleImage.getDrawable();
+        if(bitmapDrawable != null) {
+            Bitmap photo = bitmapDrawable.getBitmap();
+            Palette.from(photo).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(@Nullable Palette palette) {
+                    int bgColor = palette.getVibrantColor(ContextCompat.getColor(context, android.R.color.black));
+                    holder.date.setBackgroundColor(bgColor);
+                }
+            });
+        }
+
     }
 
     @Override
