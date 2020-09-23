@@ -60,6 +60,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                 public void onGenerated(@Nullable Palette palette) {
                     int bgColor = palette.getVibrantColor(ContextCompat.getColor(context, android.R.color.black));
                     holder.date.setBackgroundColor(bgColor);
+                    holder.author.setTextColor(bgColor);
                 }
             });
         }
